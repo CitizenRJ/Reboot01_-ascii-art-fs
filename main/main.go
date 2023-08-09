@@ -80,20 +80,46 @@ func isValid(s string) bool {
 	return true
 }
 
+func OnlyContains(s, sep string) bool {
+	for i := 0; i < len(s); i++ {
+		if string(s[i]) == "\\" {
+			if string(s[i+1]) == "n" {
+				if i != len(s)-3 {
+					i++
+				}
+			} else {
+				return false
+			}
+		} else {
+			return false
+		}
+	}
+	return true
+}
+
 // Print the full outcome
 func printBanners(banners, arr []string) {
+	num := 0
 	for _, ch := range banners {
+		num = num + 1
 		if ch == "" {
+			if num < len(banners) {
 			fmt.Println()
 			continue
+			} else {
+				continue
+			}
 		}
 		for i := 0; i < 8; i++ {
 			for _, j := range ch {
 				n := (j-32)*9 + 1
 				fmt.Print(arr[int(n)+i])
+
 			}
-			fmt.Println("")
+				fmt.Println()
+
 		}
-		fmt.Println("")
+		fmt.Println()
+
 	}
 }
