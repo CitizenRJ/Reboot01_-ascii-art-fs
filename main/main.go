@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"strings"
+	"asciiArtFs"
 )
 
 const (
@@ -19,7 +20,8 @@ func main() {
 		return
 	}
 	args := os.Args[1:]
-	if !isValid(args[0]) {
+	// bol := asciiArtFs.IsValid(args[0])
+	if !(asciiArtFs.IsValid(args[0])) {
 		fmt.Println("Not a valid character")
 		return
 	}
@@ -67,59 +69,5 @@ func main() {
 			argsArr = argsArr[:larg-1]
 		}
 	}
-	printBanners(argsArr, arr)
-}
-
-// Check for valid of characters by runes from 32 to 126
-func isValid(s string) bool {
-	for _, ch := range s {
-		if ch < ' ' && ch != 10 || ch > '~' {
-			return false
-		}
-	}
-	return true
-}
-
-func OnlyContains(s, sep string) bool {
-	for i := 0; i < len(s); i++ {
-		if string(s[i]) == "\\" {
-			if string(s[i+1]) == "n" {
-				if i != len(s)-3 {
-					i++
-				}
-			} else {
-				return false
-			}
-		} else {
-			return false
-		}
-	}
-	return true
-}
-
-// Print the full outcome
-func printBanners(banners, arr []string) {
-	num := 0
-	for _, ch := range banners {
-		num = num + 1
-		if ch == "" {
-			if num < len(banners) {
-			fmt.Println()
-			continue
-			} else {
-				continue
-			}
-		}
-		for i := 0; i < 8; i++ {
-			for _, j := range ch {
-				n := (j-32)*9 + 1
-				fmt.Print(arr[int(n)+i])
-
-			}
-				fmt.Println()
-
-		}
-		fmt.Println()
-
-	}
+	asciiArtFs.PrintBanners(argsArr, arr)
 }
